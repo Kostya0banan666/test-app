@@ -4,12 +4,7 @@ FROM public.ecr.aws/docker/library/python:3.12-slim-bookworm
 LABEL \
   org.opencontainers.image.authors="Andrii Savchenko <sava777@gmail.com>, Kotiantyn Savchenko <savchenko.kostya777@gmail.com>" \
   org.opencontainers.image.base.name="public.ecr.aws/docker/library/python:3.12-slim-bookworm" \
-  org.opencontainers.image.created="2025-10-01" \
-  org.opencontainers.image.description="TDB" \
-  org.opencontainers.image.title="TBD" \
-  org.opencontainers.image.url="https://github.com/Kostya0banan666/test-app" \
-  org.opencontainers.image.vendor="Savchenko" \
-  org.opencontainers.image.version="0.0.1"
+  org.opencontainers.image.vendor="Savchenko"
 
 # ✨ Define constants and basic user metadata
 ARG APP_HOME=/app
