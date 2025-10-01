@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+</head>
+<body>
+  <main>
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+    <p>API health: <code>/api/health</code></p>
+    <p>Echo приклад: <code>/api/echo?q=hello</code></p>
+  </main>
+</body>
+</html>

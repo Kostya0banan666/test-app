@@ -1,0 +1,57 @@
+[tool.poetry]
+name = "test-app"
+version = "0.0.1"
+description = "TBD"
+authors = [
+    "Andrii Savchenko <sava777@gmail.com>",
+    "Kostiantyn Savchenko <savchenko.kostya777@gmail.com>"
+]
+
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">= 3.11,<3.13"
+fastapi = ">= 0.118.0"
+uvicorn = {version = ">=0.37.0", extras = ["standard"]}
+jinja2 = ">=3.1.6"
+python-multipart = ">=0.0.20"
+aiofiles = ">=24.1.0"
+pydantic-settings = ">=2.11.0"
+
+[tool.poetry.group.dev.dependencies]
+black = ">=25.9.0"
+isort = ">=6.1.0"
+pytest = ">=8.4.2"
+pytest-asyncio = ">=1.2.0"
+httpx = ">=0.28.1"
+mypy = ">=1.18.2"
+types-aiofiles = ">=24.1.0.20250822"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = ["app"]
+combine_as_imports = true
+
+[tool.mypy]
+python_version = "3.11"
+plugins = ["pydantic.mypy"]
+strict = false
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unreachable = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+asyncio_mode = "auto"
