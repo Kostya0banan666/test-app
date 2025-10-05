@@ -84,12 +84,13 @@ jobs:
           echo "After bump:"
           grep -E '^(version|appVersion):' -n "$CHART_DIR/Chart.yaml"
 
-      - name: Update values.yaml (image repo & tag)
+      - name: Update values.yaml (image repo & tag; force lowercase)
         uses: mikefarah/yq@v4
         with:
           cmd: |
+            REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
             yq -i '
-              .image.repository = "ghcr.io/${{ github.repository }}" |
+              .image.repository = "ghcr.io/" + strenv(REPO_LOWER) |
               .image.tag = "${{ github.ref_name }}"
             ' "$CHART_DIR/values.yaml"
 
