@@ -123,5 +123,8 @@ tolerations: []
 affinity: {}
 
 envFrom:
-  configMaps: []   # напр.: ["shared-config", "feature-flags"]
-  secrets: []      # напр.: ["global-secrets"]
+  configMaps: []
+  # - shared-config
+  # - feature-flags
+  secrets: []
+  # - global-secrets

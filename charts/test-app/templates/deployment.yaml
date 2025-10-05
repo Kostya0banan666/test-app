@@ -50,8 +50,9 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- $cmName := (cond .Values.configmap.name .Values.configmap.name (printf "%s-config" (include "test-app.fullname" .))) }}
-          {{- $secName := (cond .Values.secret.name .Values.secret.name (printf "%s-secret" (include "test-app.fullname" .))) }}
+          {{- $hasCM := gt (len .Values.envFrom.configMaps) 0 -}}
+          {{- $hasSec := gt (len .Values.envFrom.secrets) 0 -}}
+          {{- if or $hasCM $hasSec }}
           envFrom:
             {{- range .Values.envFrom.configMaps }}
             - configMapRef:
@@ -61,6 +62,7 @@ spec:
             - secretRef:
                 name: {{ . }}
             {{- end }}
+          {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
