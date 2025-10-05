@@ -77,15 +77,15 @@ jobs:
         with:
           version: v3.18.3
 
+      - name: Set up yq
+        uses: mikefarah/yq@v4
+
       - name: Bump Chart.yaml version fields
         run: |
           sed -i "s/^version:.*/version: ${GITHUB_REF_NAME}/" "$CHART_DIR/Chart.yaml"
           sed -i "s/^appVersion:.*/appVersion: \"${GITHUB_REF_NAME}\"/" "$CHART_DIR/Chart.yaml"
-          echo "After bump:"
-          grep -E '^(version|appVersion):' -n "$CHART_DIR/Chart.yaml"
 
-      - name: Update values.yaml (image repo & tag; force lowercase)
-        uses: mikefarah/yq@v4
+      - name: Update values.yaml
         run: |
           REPO_LOWER="${GITHUB_REPOSITORY,,}"
           TAG="${GITHUB_REF_NAME}"
