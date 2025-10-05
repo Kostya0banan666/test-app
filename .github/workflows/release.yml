@@ -112,8 +112,7 @@ jobs:
       - name: Push chart to GHCR (OCI)
         run: |
           CHART_TGZ=$(ls dist/*.tgz)
-          REPO_LOWER=$(echo "${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')
-          TARGET="oci://ghcr.io/${REPO_LOWER}/charts"
+          OWNER_LOWER=$(echo "${GITHUB_REPOSITORY%/*}" | tr '[:upper:]' '[:lower:]')
+          TARGET="oci://ghcr.io/${OWNER_LOWER}/charts"
           echo "Pushing $CHART_TGZ to $TARGET"
           helm push "$CHART_TGZ" "$TARGET"
-          echo "Pushed: ${TARGET}/$(basename "$CHART_TGZ" .tgz)"
