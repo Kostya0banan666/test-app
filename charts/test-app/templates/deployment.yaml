@@ -53,6 +53,9 @@ spec:
           {{- $hasCM := gt (len .Values.envFrom.configMaps) 0 -}}
           {{- $hasSec := gt (len .Values.envFrom.secrets) 0 -}}
           {{- if or $hasCM $hasSec }}
+          env:
+          - name: APP_VERSION
+            value: {{ .Chart.appVersion | quote }}
           envFrom:
             {{- range .Values.envFrom.configMaps }}
             - configMapRef:

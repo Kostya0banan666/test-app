@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
@@ -5,6 +6,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 app = FastAPI(title="Minimal Web+API")
+
+APP_VERSION = os.getenv("APP_VERSION", "unknown")
 
 # Flat structure: /app/static and /app/templates
 static_dir = Path("static")
@@ -31,7 +34,7 @@ async def root(request: Request):
 @app.get("/api/health")
 async def health():
     """Simple health check endpoint."""
-    return {"status": "ok"}
+    return {"status": "ok", "version": APP_VERSION}
 
 @app.get("/api/echo")
 async def echo(q: str = "world"):
