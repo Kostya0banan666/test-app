@@ -86,15 +86,14 @@ jobs:
 
       - name: Update values.yaml (image repo & tag; force lowercase)
         uses: mikefarah/yq@v4
-        env:
-          REPO_LOWER: ${{ toLower(github.repository) }}
-          TAG: ${{ github.ref_name }}
-        with:
-          cmd: |
-            yq -i '
-              .image.repository = "ghcr.io/" + env(REPO_LOWER) |
-              .image.tag = env(TAG)
-            ' "$CHART_DIR/values.yaml"
+        run: |
+          REPO_LOWER="${GITHUB_REPOSITORY,,}"
+          TAG="${GITHUB_REF_NAME}"
+          export REPO_LOWER TAG
+          yq -i '
+            .image.repository = "ghcr.io/" + env(REPO_LOWER) |
+            .image.tag = env(TAG)
+          ' "$CHART_DIR/values.yaml"
 
       - name: Helm lint
         run: helm lint "$CHART_DIR"
